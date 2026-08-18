@@ -1,6 +1,7 @@
 package uk.co.toastysoftware.bakers_archive
 
 import io.ktor.client.*
+import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import java.io.StringReader
@@ -10,7 +11,7 @@ import org.xml.sax.InputSource
 
 class OdooService(private val baseUrl: String) {
 
-  private val client = HttpClient()
+  private val client = HttpClient(Android)
 
   private val archives =
       listOf(

@@ -38,11 +38,12 @@ kotlin {
       implementation(libs.ktor.client.content.negotiation)
       implementation(libs.ktor.serialization.kotlinx.json)
 
-      implementation(libs.kotlinx.coroutinesSwing)
+      implementation(libs.kotlinx.coroutines.core)
       implementation(libs.kotlinx.serialization.json)
     }
 
     androidMain.dependencies {
+      implementation(libs.ktor.client.android)
       implementation(libs.compose.uiToolingPreview)
     }
   }
