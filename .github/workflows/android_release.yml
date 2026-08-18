@@ -21,7 +21,6 @@ jobs:
       version_changed: ${{ steps.version.outputs.version_changed }}
       version_name: ${{ steps.version.outputs.version_name }}
       version_code: ${{ steps.version.outputs.version_code }}
-      package_name: ${{ steps.version.outputs.package_name }}
 
     steps:
       - name: Checkout repository
@@ -42,26 +41,16 @@ jobs:
             exit 1
           fi
 
-          CURRENT_VERSION_CODE="$(
-            sed -nE \
-              's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+).*/\1/p' \
-              "$FILE" \
-              | head -n 1
-          )"
+          # Current versionCode.
+          CURRENT_VERSION_CODE=$(grep -E '^[[:space:]]*versionCode[[:space:]]*=' "$FILE" \
+            | head -n 1 \
+            | grep -oE '[0-9]+' \
+            | head -n 1)
 
-          CURRENT_VERSION_NAME="$(
-            sed -nE \
-              's/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' \
-              "$FILE" \
-              | head -n 1
-          )"
-
-          CURRENT_PACKAGE_NAME="$(
-            sed -nE \
-              's/^[[:space:]]*applicationId[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' \
-              "$FILE" \
-              | head -n 1
-          )"
+          # Current versionName.
+          CURRENT_VERSION_NAME=$(grep -E '^[[:space:]]*versionName[[:space:]]*=' "$FILE" \
+            | head -n 1 \
+            | sed -E 's/.*versionName[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/')
 
           if [[ -z "$CURRENT_VERSION_CODE" ]]; then
             echo "::error::Could not find versionCode in $FILE"
@@ -73,11 +62,6 @@ jobs:
             exit 1
           fi
 
-          if [[ -z "$CURRENT_PACKAGE_NAME" ]]; then
-            echo "::error::Could not find applicationId in $FILE"
-            exit 1
-          fi
-
           BEFORE="${{ github.event.before }}"
 
           if [[ "$BEFORE" == "0000000000000000000000000000000000000000" ]]; then
@@ -86,16 +70,18 @@ jobs:
 
             VERSION_CHANGED="true"
             PREVIOUS_VERSION_CODE=""
+
           else
-            if git cat-file -e "${BEFORE}:${FILE}" 2>/dev/null; then
-              PREVIOUS_VERSION_CODE="$(
-                git show "${BEFORE}:${FILE}" \
-                  | sed -nE \
-                    's/^[[:space:]]*versionCode[[:space:]]*=[[:space:]]*([0-9]+).*/\1/p' \
-                  | head -n 1
-              )
+            if git cat-file -e "$BEFORE:$FILE" 2>/dev/null; then
+
+              PREVIOUS_VERSION_CODE=$(git show "$BEFORE:$FILE" \
+                | grep -E '^[[:space:]]*versionCode[[:space:]]*=' \
+                | head -n 1 \
+                | grep -oE '[0-9]+' \
+                | head -n 1)
+
             else
-              echo "File did not exist in the previous commit."
+              echo "The Gradle file did not exist in the previous commit."
               PREVIOUS_VERSION_CODE=""
             fi
 
@@ -106,16 +92,20 @@ jobs:
             fi
           fi
 
+          echo ""
+          echo "========================================"
+          echo "Android Version"
+          echo "========================================"
           echo "Previous versionCode: ${PREVIOUS_VERSION_CODE:-<none>}"
           echo "Current versionCode:  $CURRENT_VERSION_CODE"
           echo "Current versionName:  $CURRENT_VERSION_NAME"
-          echo "Application ID:       $CURRENT_PACKAGE_NAME"
           echo "Version changed:      $VERSION_CHANGED"
+          echo "========================================"
+          echo ""
 
           echo "version_changed=$VERSION_CHANGED" >> "$GITHUB_OUTPUT"
           echo "version_name=$CURRENT_VERSION_NAME" >> "$GITHUB_OUTPUT"
           echo "version_code=$CURRENT_VERSION_CODE" >> "$GITHUB_OUTPUT"
-          echo "package_name=$CURRENT_PACKAGE_NAME" >> "$GITHUB_OUTPUT"
 
   build-and-release:
     name: Build and Release
@@ -128,7 +118,6 @@ jobs:
     env:
       VERSION_NAME: ${{ needs.check-version.outputs.version_name }}
       VERSION_CODE: ${{ needs.check-version.outputs.version_code }}
-      PACKAGE_NAME: ${{ needs.check-version.outputs.package_name }}
 
     steps:
       - name: Checkout repository
@@ -208,15 +197,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          APK="$(find app/androidApp/build/outputs/apk/release \
+          APK=$(find app/androidApp/build/outputs/apk/release \
             -type f \
             -name "*.apk" \
-            | head -n 1)"
+            | head -n 1)
 
-          AAB="$(find app/androidApp/build/outputs/bundle/release \
+          AAB=$(find app/androidApp/build/outputs/bundle/release \
             -type f \
             -name "*.aab" \
-            | head -n 1)"
+            | head -n 1)
 
           if [[ -z "$APK" ]]; then
             echo "::error::Could not find release APK."
@@ -228,11 +217,8 @@ jobs:
             exit 1
           fi
 
-          echo "APK found:"
-          echo "$APK"
-
-          echo "AAB found:"
-          echo "$AAB"
+          echo "APK: $APK"
+          echo "AAB: $AAB"
 
           echo "apk=$APK" >> "$GITHUB_OUTPUT"
           echo "aab=$AAB" >> "$GITHUB_OUTPUT"
@@ -244,7 +230,7 @@ jobs:
           set -euo pipefail
 
           SOURCE="${{ steps.artifacts.outputs.apk }}"
-          DESTINATION="The Baker's Archive - ${VERSION_NAME}.apk"
+          DESTINATION="The Baker's Action - ${VERSION_NAME}.apk"
 
           cp "$SOURCE" "$DESTINATION"
 
@@ -255,7 +241,9 @@ jobs:
         run: |
           set -euo pipefail
 
-          $ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -n 1)/apksigner \
+          BUILD_TOOLS=$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -n 1)
+
+          "$ANDROID_HOME/build-tools/$BUILD_TOOLS/apksigner" \
             verify \
             --verbose \
             "${{ steps.renamed-apk.outputs.apk }}"
@@ -264,7 +252,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VERSION_NAME }}
-          name: The Baker's Archive - ${{ env.VERSION_NAME }}
+          name: The Baker's Action - ${{ env.VERSION_NAME }}
           body_path: releaseNotes.md
           files: |
             ${{ steps.renamed-apk.outputs.apk }}
@@ -276,10 +264,10 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_CONFIG_JSON }}
-          packageName: ${{ env.PACKAGE_NAME }}
+          packageName: uk.co.toastysoftware.bakers_archive
           releaseFiles: ${{ steps.artifacts.outputs.aab }}
           track: production
-          releaseName: The Baker's Archive - ${{ env.VERSION_NAME }}
+          releaseName: The Baker's Action - ${{ env.VERSION_NAME }}
           status: draft
 
       - name: Clean signing keystore
