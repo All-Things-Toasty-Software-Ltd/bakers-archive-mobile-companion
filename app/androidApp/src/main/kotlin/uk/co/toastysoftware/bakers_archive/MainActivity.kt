@@ -6,14 +6,13 @@ import androidx.activity.compose.setContent
 
 class MainActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        val odooService = OdooService(baseUrl = "https://www.austinatts.co.uk")
+    val odooService = OdooService(baseUrl = "https://www.austinatts.co.uk")
 
-        setContent {
-
-            App(odooService = odooService)
-        }
+    setContent {
+      App(odooService = odooService)
     }
+  }
 }

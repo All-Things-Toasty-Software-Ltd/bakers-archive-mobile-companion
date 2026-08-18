@@ -10,5 +10,5 @@ data class ArchiveRecipe(
     val summary: String,
     val author: String,
     val updated: String,
-    val archive: String
+    val archive: String,
 )
