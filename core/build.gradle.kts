@@ -34,6 +34,13 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.components.resources)
 
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+
             implementation(libs.kotlinx.coroutinesSwing)
             implementation(libs.kotlinx.serialization.json)
         }
