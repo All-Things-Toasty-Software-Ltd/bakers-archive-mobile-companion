@@ -230,7 +230,7 @@ jobs:
           set -euo pipefail
 
           SOURCE="${{ steps.artifacts.outputs.apk }}"
-          DESTINATION="The Baker's Action - ${VERSION_NAME}.apk"
+          DESTINATION="The Baker's Archive - ${VERSION_NAME}.apk"
 
           cp "$SOURCE" "$DESTINATION"
 
@@ -267,7 +267,7 @@ jobs:
           packageName: uk.co.toastysoftware.bakers_archive
           releaseFiles: ${{ steps.artifacts.outputs.aab }}
           track: production
-          releaseName: The Baker's Action - ${{ env.VERSION_NAME }}
+          releaseName: The Baker's Archive - ${{ env.VERSION_NAME }}
           status: draft
 
       - name: Clean signing keystore
