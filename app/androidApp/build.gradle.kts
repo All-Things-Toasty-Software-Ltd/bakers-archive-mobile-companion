@@ -2,21 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
-    }
-}
-dependencies {
-    implementation(project(":app:shared"))
-
-    implementation(libs.androidx.activity.compose)
-
-    implementation(libs.compose.uiToolingPreview)
-    debugImplementation(libs.compose.uiTooling)
 }
 
 android {
@@ -45,10 +32,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
     }
+}
+
+dependencies {
+    implementation(projects.core) // References your core module
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+
+    debugImplementation(libs.compose.uiTooling)
 }

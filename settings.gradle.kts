@@ -1,4 +1,4 @@
-rootProject.name = "The Baker's Archive"
+rootProject.name = "bakers-archive"
 
 pluginManagement {
     repositories {
@@ -31,9 +31,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include(":app:androidApp")
-include(":app:desktopApp")
-include(":app:shared")
-include(":app:webApp")
 include(":core")
-include(":server")
