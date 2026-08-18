@@ -1,1 +1,1 @@
-Test release notes for the new workflow file.
+Fix the Odoo service by properly including ktor and some slight libs changes.
