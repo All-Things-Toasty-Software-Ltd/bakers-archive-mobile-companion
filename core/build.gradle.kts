@@ -23,6 +23,14 @@ kotlin {
     }
   }
 
+  jvm("desktop") {
+    compilerOptions {
+      jvmTarget.set(
+        org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+      )
+    }
+  }
+
   sourceSets {
     commonMain.dependencies {
       implementation(libs.compose.runtime)
@@ -45,6 +53,12 @@ kotlin {
     androidMain.dependencies {
       implementation(libs.ktor.client.android)
       implementation(libs.compose.uiToolingPreview)
+    }
+
+    val desktopMain by getting {
+      dependencies {
+        implementation(libs.ktor.client.cio)
+      }
     }
   }
 }

@@ -34,5 +34,5 @@ plugins {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app:androidApp")
-
+include(":app:desktopApp")
 include(":core")

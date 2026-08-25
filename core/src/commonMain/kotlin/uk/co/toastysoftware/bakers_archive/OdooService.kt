@@ -1,29 +1,13 @@
 package uk.co.toastysoftware.bakers_archive
 
-import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.engine.android.*
-import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
-import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.json.Json
 
 class OdooService(
     private val baseUrl: String,
 ) {
 
-  private val client =
-      HttpClient(Android) {
-        install(ContentNegotiation) {
-          json(
-              Json {
-                ignoreUnknownKeys = true
-                isLenient = true
-                explicitNulls = false
-              },
-          )
-        }
-      }
+  private val client = createHttpClient()
 
   /**
    * Discover all public archives.
