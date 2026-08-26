@@ -12,8 +12,8 @@ android {
     applicationId = "uk.co.toastysoftware.bakers_archive"
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
-    versionCode = 4
-    versionName = "0.3.4"
+    versionCode = 5
+    versionName = "0.3.8"
   }
   packaging {
     resources {

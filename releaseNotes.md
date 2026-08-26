@@ -1,1 +1,3 @@
-Fix the Odoo service by properly including ktor and some slight libs changes.
+Updated to use The Baker's Archive api (www.austinatts.co.uk/archive/api/v1/)
+Added views for Archives, Archive/{id} and Recipe/{id}
+Added a desktop version.

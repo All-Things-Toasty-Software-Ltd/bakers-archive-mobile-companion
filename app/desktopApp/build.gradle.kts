@@ -22,7 +22,7 @@ compose.desktop {
 
         nativeDistributions {
             packageName = "bakers-archive"
-            packageVersion = "0.3.4"
+            packageVersion = "0.3.8"
             description = "Companion app for The Baker's Archive"
             copyright = "© 2026 All Things Toasty Software Ltd. All rights reserved."
             vendor = "All Things Toasty Software Ltd"
@@ -58,7 +58,7 @@ msix {
         identityName.set("ToastySoftware.TheBakersArchive")
         publisher.set("CN=85C6607D-F08D-4FDB-ACC4-DAD6918EECFC")
         publisherDisplayName.set("Toasty Software")
-        version.set("0.3.4.0")
+        version.set("0.3.8.0")
         processorArchitecture.set("x64")
         appExecutable.set("bakers-archive.exe")
     }
