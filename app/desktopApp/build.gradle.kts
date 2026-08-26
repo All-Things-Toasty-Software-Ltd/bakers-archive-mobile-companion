@@ -60,6 +60,6 @@ msix {
         publisherDisplayName.set("Toasty Software")
         version.set("0.3.4.0")
         processorArchitecture.set("x64")
-        appExecutable.set("TheBakersArchive.exe")
+        appExecutable.set("bakers-archive.exe")
     }
 }
