@@ -14,6 +14,10 @@ dependencies {
 
     implementation(compose.desktop.currentOs)
     implementation(libs.compose.material3)
+
+    implementation(libs.ktor.client.java)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
 }
 
 compose.desktop {
