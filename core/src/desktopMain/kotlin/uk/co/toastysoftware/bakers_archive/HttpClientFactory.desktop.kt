@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import java.util.concurrent.TimeUnit
 
 actual fun createHttpClient(): HttpClient {
-  return HttpClient(Ok) {
+  return HttpClient(OkHttp) {
     engine {
       config {
         connectTimeout(15, TimeUnit.SECONDS)
