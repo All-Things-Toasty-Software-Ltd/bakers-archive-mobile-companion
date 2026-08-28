@@ -7,7 +7,9 @@ import androidx.compose.ui.window.application
 fun main() {
 
   System.setProperty("java.net.preferIPv4Stack", "true")
-  System.setProperty("javax.net.ssl.trustStoreType", "WINDOWS-ROOT")
+  System.setProperty("jdk.net.usePlainSocketImpl", "true")
+
+  System.setProperty("org.newsclub.net.unix.disable-native", "true")
 
   application {
     val odooService =

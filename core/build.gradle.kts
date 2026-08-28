@@ -57,7 +57,7 @@ kotlin {
 
     val desktopMain by getting {
       dependencies {
-        implementation(libs.ktor.client.java)
+        implementation(libs.ktor.client.okhttp)
       }
     }
   }

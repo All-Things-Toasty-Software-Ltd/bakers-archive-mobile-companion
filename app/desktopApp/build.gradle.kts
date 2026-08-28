@@ -1,80 +1,80 @@
 plugins {
-    alias(libs.plugins.kotlinJvm)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
-    id("de.stefan-oltmann.gradle-msix-plugin") version "0.2.1"
+  alias(libs.plugins.kotlinJvm)
+  alias(libs.plugins.composeMultiplatform)
+  alias(libs.plugins.composeCompiler)
+  id("de.stefan-oltmann.gradle-msix-plugin") version "0.2.1"
 }
 
 kotlin {
-    jvmToolchain(17)
+  jvmToolchain(17)
 }
 
 dependencies {
-    implementation(projects.core)
+  implementation(projects.core)
 
-    implementation(compose.desktop.currentOs)
-    implementation(libs.compose.material3)
+  implementation(compose.desktop.currentOs)
+  implementation(libs.compose.material3)
 
-    implementation(libs.ktor.client.java)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
+  implementation(libs.ktor.client.okhttp)
+  implementation(libs.ktor.client.content.negotiation)
+  implementation(libs.ktor.serialization.kotlinx.json)
 }
 
 compose.desktop {
-    application {
-        mainClass = "uk.co.toastysoftware.bakers_archive.MainKt"
+  application {
+    mainClass = "uk.co.toastysoftware.bakers_archive.MainKt"
 
-        nativeDistributions {
-            packageName = "bakers-archive"
-            packageVersion = "0.3.8"
-            description = "Companion app for The Baker's Archive"
-            copyright = "© 2026 All Things Toasty Software Ltd. All rights reserved."
-            vendor = "All Things Toasty Software Ltd"
+    nativeDistributions {
+      packageName = "bakers-archive"
+      packageVersion = "0.3.8"
+      description = "Companion app for The Baker's Archive"
+      copyright = "© 2026 All Things Toasty Software Ltd. All rights reserved."
+      vendor = "All Things Toasty Software Ltd"
 
-            includeAllModules = true
+      includeAllModules = true
 
-            targetFormats(
-                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
-                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe
-            )
+      targetFormats(
+          org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
+          org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe,
+      )
 
-            windows {
-                upgradeUuid = "c35b8d97-f8e8-4168-a1d1-ca300cc84017"
-                menuGroup = "Baker's Archive"
-                iconFile.set(project.file("src/main/resources/icon.ico"))
-                dirChooser = true
-            }
-        }
-
-        buildTypes {
-            release {
-                proguard {
-                    isEnabled.set(false)
-                }
-            }
-        }
+      windows {
+        upgradeUuid = "c35b8d97-f8e8-4168-a1d1-ca300cc84017"
+        menuGroup = "Baker's Archive"
+        iconFile.set(project.file("src/main/resources/icon.ico"))
+        dirChooser = true
+      }
     }
+
+    buildTypes {
+      release {
+        proguard {
+          isEnabled.set(false)
+        }
+      }
+    }
+  }
 }
 
 msix {
-    val envPfxPath = System.getenv("MSIX_PFX_PATH")
-    val envPfxPassword = System.getenv("MSIX_PFX_PASSWORD")
+  val envPfxPath = System.getenv("MSIX_PFX_PATH")
+  val envPfxPassword = System.getenv("MSIX_PFX_PASSWORD")
 
-    if (!envPfxPath.isNullOrEmpty() && !envPfxPassword.isNullOrEmpty()) {
-        signingPfx.set(file(envPfxPath))
-        signingPassword.set(envPfxPassword)
-    }
-    svgIcon.set(layout.projectDirectory.file("src/main/resources/icon.svg"))
-    manifest {
-        templateFile.set(layout.projectDirectory.file("src/main/resources/AppxManifest.xml"))
-        appId.set("TheBakersArchive")
-        displayName.set("The Baker's Archive")
-        description.set("Companion app for The Baker's Archive")
-        identityName.set("ToastySoftware.TheBakersArchive")
-        publisher.set("CN=85C6607D-F08D-4FDB-ACC4-DAD6918EECFC")
-        publisherDisplayName.set("Toasty Software")
-        version.set("0.3.8.0")
-        processorArchitecture.set("x64")
-        appExecutable.set("bakers-archive.exe")
-    }
+  if (!envPfxPath.isNullOrEmpty() && !envPfxPassword.isNullOrEmpty()) {
+    signingPfx.set(file(envPfxPath))
+    signingPassword.set(envPfxPassword)
+  }
+  svgIcon.set(layout.projectDirectory.file("src/main/resources/icon.svg"))
+  manifest {
+    templateFile.set(layout.projectDirectory.file("src/main/resources/AppxManifest.xml"))
+    appId.set("TheBakersArchive")
+    displayName.set("The Baker's Archive")
+    description.set("Companion app for The Baker's Archive")
+    identityName.set("ToastySoftware.TheBakersArchive")
+    publisher.set("CN=85C6607D-F08D-4FDB-ACC4-DAD6918EECFC")
+    publisherDisplayName.set("Toasty Software")
+    version.set("0.3.8.0")
+    processorArchitecture.set("x64")
+    appExecutable.set("bakers-archive.exe")
+  }
 }
