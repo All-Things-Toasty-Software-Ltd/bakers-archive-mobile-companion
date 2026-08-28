@@ -62,6 +62,7 @@ msix {
     }
     svgIcon.set(layout.projectDirectory.file("src/main/resources/icon.svg"))
     manifest {
+        templateFile.set(layout.projectDirectory.file("src/main/resources/AppxManifest.xml"))
         appId.set("TheBakersArchive")
         displayName.set("The Baker's Archive")
         description.set("Companion app for The Baker's Archive")
