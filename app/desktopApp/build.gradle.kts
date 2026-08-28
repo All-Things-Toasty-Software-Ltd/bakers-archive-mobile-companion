@@ -27,6 +27,8 @@ compose.desktop {
             copyright = "© 2026 All Things Toasty Software Ltd. All rights reserved."
             vendor = "All Things Toasty Software Ltd"
 
+            includeAllModules = true
+
             targetFormats(
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe
@@ -37,6 +39,14 @@ compose.desktop {
                 menuGroup = "Baker's Archive"
                 iconFile.set(project.file("src/main/resources/icon.ico"))
                 dirChooser = true
+            }
+        }
+
+        buildTypes {
+            release {
+                proguard {
+                    isEnabled.set(false)
+                }
             }
         }
     }
