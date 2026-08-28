@@ -14,7 +14,7 @@ actual fun createHttpClient(): HttpClient {
       config {
         connectTimeout(15, TimeUnit.SECONDS)
         readTimeout(15, TimeUnit.SECONDS)
-        writeTimout(15, TimeUnit.SECONDS)
+        writeTimeout(15, TimeUnit.SECONDS)
       }
     }
     install(ContentNegotiation) {
