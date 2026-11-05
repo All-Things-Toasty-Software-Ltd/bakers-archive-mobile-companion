@@ -9,6 +9,7 @@ import 'providers/auth_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'providers/recipe_detail_provider.dart';
 import 'providers/theme_provider.dart';
+import 'screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,11 +54,7 @@ class BakersArchiveApp extends StatelessWidget {
       theme: BreadTheme.lightTheme,
       darkTheme: BreadTheme.darkTheme,
       themeMode: themeProvider.themeMode,
-      home: const Scaffold(
-        body: Center(
-          child: Text(AppConstants.appName),
-        ),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
