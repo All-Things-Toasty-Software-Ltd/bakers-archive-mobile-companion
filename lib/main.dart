@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'core/constants/app_constants.dart';
+import 'core/theme/bread_theme.dart';
+
 void main() {
   runApp(const BakersArchiveApp());
 }
@@ -14,15 +17,14 @@ class BakersArchiveApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "The Baker's Archive",
+      title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0xFFD97706),
-        useMaterial3: true,
-      ),
+      theme: BreadTheme.lightTheme,
+      darkTheme: BreadTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: const Scaffold(
         body: Center(
-          child: Text("The Baker's Archive"),
+          child: Text(AppConstants.appName),
         ),
       ),
     );
