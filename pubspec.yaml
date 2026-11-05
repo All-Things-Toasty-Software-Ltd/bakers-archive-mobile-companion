@@ -2,7 +2,7 @@ name: bakers_archive
 description: "The Baker's Archive Mobile Companion by Toasty Software Ltd"
 publish_to: 'none'
 
-version: 1.0.0+9
+version: 1.0.0+10
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
