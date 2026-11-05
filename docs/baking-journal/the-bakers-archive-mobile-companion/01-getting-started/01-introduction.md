@@ -37,4 +37,4 @@ The app is **not** a recipe backend. It talks directly to the same public, read-
 
 ## Platforms
 
-Version `1.0.0` targets Android and Web from the shared Flutter codebase, and ships a Windows runner used by the Toasty Deployer MSIX build. The same Dart code drives all three.
+Version `1.0.0` targets Android exclusively. The shared Flutter codebase is structured so future platforms can be re-enabled deliberately, but only the Android build, deployment pipeline and documentation are supported today.

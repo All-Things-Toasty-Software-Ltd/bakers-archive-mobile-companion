@@ -1,7 +1,7 @@
 ---
 title: "Installation & Requirements"
 seo_title: "Installation & Requirements | Baking Journal"
-meta_description: "The Flutter SDK, Android/Windows toolchain, signing material and the repository you need before building."
+meta_description: "The Flutter SDK, Android toolchain, signing material and the repository you need before building."
 slug: "the-bakers-archive-mobile-companion/getting-started/installation-and-requirements"
 type: "page"
 order: 2
@@ -13,11 +13,10 @@ order: 2
 
 | Item | Used for |
 | --- | --- |
-| Flutter SDK (stable) with Dart 3 | Building the Android APK/AAB, web build and Windows runner. |
-| Android SDK with recent build-tools | Assembling and signing the APK and AAB. |
+| Linux or macOS | Building the Android APK/AAB. Toasty Deployer builds on Linux. |
+| Flutter SDK (stable) with Dart 3 | Building and running the Android app. |
+| Android SDK with recent build-tools | Assembling, signing and verifying the APK/AAB. |
 | JDK 17 | Gradle and the Android toolchain. |
-| Visual Studio with the desktop C++ workload | Windows runner used for the MSIX. |
-| `msix` Dart package (`dev_dependencies`) | Packaging the Windows build into an MSIX. |
 | `git` / `jj` | Working with the repository. |
 
 The app was developed against Flutter channels whose `flutter --version` reports Dart `>= 3.3.0` and `< 4.0.0`, matching `pubspec.yaml`.
@@ -35,11 +34,11 @@ cd bakers-archive-mobile-companion
 flutter pub get
 ```
 
-This resolves the Flutter plugins (`provider`, `shared_preferences`, `http`, `cached_network_image`, `google_fonts`, `share_plus`, `url_launcher`, `font_awesome_flutter`) and the `msix` packager used by the Windows release.
+This resolves the Flutter plugins (`provider`, `shared_preferences`, `http`, `cached_network_image`, `google_fonts`, `share_plus`, `url_launcher`, `font_awesome_flutter`).
 
 ## Android signing
 
-Local development builds fall back to the debug keystore. Release builds from Toasty Deployer read `android/key.properties`:
+Local development builds fall back to the debug keystore. Release builds from Toasty Deployer write `android/key.properties` from CI secrets:
 
 ```properties
 storeFile=/path/to/android-release.jks
@@ -48,8 +47,12 @@ keyAlias=...
 keyPassword=...
 ```
 
-The deployer writes this file during the build and removes it afterwards as part of the temporary workspace cleanup. Never commit `key.properties` or the keystore.
+The deployer removes the file after the build. Never commit `key.properties` or the keystore.
 
-## Windows / MSIX signing
+## Release stores
 
-The MSIX manifest is produced by the `msix` package from `msix_config:` in `pubspec.yaml`. The signing certificate is supplied at packaging time with `--certificate-path` and `--certificate-password`, or the build falls back to the package's test certificate. Toasty Deployer uses the production `msstore` certificate.
+The Linux release pipeline publishes the same APK/AAB to:
+
+- GitHub releases,
+- Toasty Software's self-hosted GitLab releases,
+- Google Play internal/production track, selected through `PLAY_TRACK`.

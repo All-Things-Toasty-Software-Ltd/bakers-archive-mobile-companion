@@ -1,7 +1,7 @@
 ---
 title: "Platform Services"
 seo_title: "Platform Services | Baking Journal"
-meta_description: "Networking, caching, sharing, link handling and images across Android, Windows and web."
+meta_description: "Networking, caching, sharing, link handling and images on Android."
 slug: "the-bakers-archive-mobile-companion/app-architecture/platform-services"
 type: "page"
 order: 4
@@ -37,9 +37,7 @@ Responses are decoded from raw `bodyBytes` as UTF-8 to tolerate non-ASCII bread 
 
 ## Platform notes
 
-- **Android** — release signing is driven by `android/key.properties` (see Build & Release).
-- **Windows** — the MSIX runner sets `internetClient` capability and stores config in `%APPDATA%`.
-- **Web** — the same code runs from the `web/` entry; CORS must be allowed by the Odoo/website serving the API.
+- **Android** — release signing is driven by `android/key.properties` (see Build & Release). App data is stored in the Flutter `shared_preferences` store under the Android application sandbox.
 
 ## Failure philosophy
 

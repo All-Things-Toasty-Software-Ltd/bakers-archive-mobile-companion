@@ -25,6 +25,6 @@ If you are new to the app, start with **Getting Started**. If you are integratin
 | Features | Explore, recipe detail, baker batch scaling, favourites, Kitchen Mode, settings and themes. |
 | Data & REST API | The public API, the serializer, models and error handling. |
 | Design System | The warm-crust colour system, typography and reusable components. |
-| Build & Release | Flutter builds, Toasty Deployer, Android signing and Windows MSIX packaging. |
+| Build & Release | Flutter APK/AAB builds, Android signing and the Linux Toasty Deployer pipeline. |
 | Operations | Troubleshooting, frequently asked questions and maintenance. |
 | Using With Baking Journal | How to import and publish this documentation with The Baking Journal Odoo module. |

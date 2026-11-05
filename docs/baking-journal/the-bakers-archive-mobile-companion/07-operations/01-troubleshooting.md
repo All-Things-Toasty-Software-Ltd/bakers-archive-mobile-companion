@@ -41,6 +41,14 @@ The app fetches the full recipe before toggling to guarantee the offline copy is
 
 Run `flutter doctor --android-licenses` and ensure `ANDROID_HOME` is exported before the first `flutter build`.
 
-## MSIX rejected with `0x800700C1` or publisher mismatch
+## APK or AAB is not accepted by Google Play
 
-The PFX subject does not match `msix_config.publisher`. Export the certificate and correct `publisher` in `pubspec.yaml`, or use the same PFX as the store reservation.
+Check the upload log for `Version code has already been used`. `version:` in `pubspec.yaml` must increase its build number on every release; `versionName` alone is not enough. If you are sideloading instead, remember the APK is the public distribution path — the AAB is Play-only.
+
+## GitLab release or asset upload fails
+
+Confirm the token has `api` scope and the configured project is access-controlled for releases. `gitlab-release.sh` refuses to create or overwrite a release when one already exists for the same tag; delete it deliberately through GitLab if you are re-running a release.
+
+## APK signature verification fails
+
+The keystore used for `android/key.properties` must match the configured key alias and passwords. Re-check the four `storeFile`, `storePassword`, `keyAlias` and `keyPassword` properties rather than regenerating the app.
