@@ -2,7 +2,7 @@ name: bakers_archive
 description: "The Baker's Archive Mobile Companion by Toasty Software Ltd"
 publish_to: 'none'
 
-version: 0.4.0+6
+version: 1.0.0+6
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -36,7 +36,7 @@ msix_config:
   publisher_display_name: Toasty Software
   identity_name: ToastySoftware.TheBakersArchive
   publisher: CN=85C6607D-F08D-4FDB-ACC4-DAD6918EECFC
-  msix_version: 0.4.0.0
+  msix_version: 1.0.0.0
   logo_path: web/icons/Icon-512.png
   capabilities: internetClient
   architecture: x64

@@ -3,7 +3,7 @@ class AppConstants {
   AppConstants._();
 
   static const String appName = "The Baker's Archive";
-  static const String appVersion = "0.4.0";
+  static const String appVersion = "1.0.0";
   static const String companyName = "All Things Toasty Software Ltd";
 
   // Default server
@@ -26,7 +26,7 @@ class AppConstants {
   static const String toastyWebsiteUrl = "https://toastysoftware.co.uk";
   static const String austinattsUrl = "https://austinatts.co.uk";
   static const String austinattsArchiveUrl = "https://austinatts.co.uk/archive";
-  static const String githubRepoUrl = "https://github.com/All-Things-Toasty-Software-Ltd/bakers-archive";
+  static const String githubRepoUrl = "https://github.com/All-Things-Toasty-Software-Ltd/bakers-archive-mobile-companion";
 
   // Storage Keys
   static const String prefServerUrl = "bakers_server_url";
