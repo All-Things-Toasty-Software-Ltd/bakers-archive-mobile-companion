@@ -16,7 +16,7 @@ order: 2
 | Linux or macOS | Building the Android APK/AAB. Toasty Deployer builds on Linux. |
 | Flutter SDK (stable) with Dart 3 | Building and running the Android app. |
 | Android SDK with recent build-tools | Assembling, signing and verifying the APK/AAB. |
-| JDK 17 | Gradle and the Android toolchain. |
+| JDK 21 | Gradle and the Android toolchain on Debian Trixie (Java 17 bytecode is still targeted). |
 | `git` / `jj` | Working with the repository. |
 
 The app was developed against Flutter channels whose `flutter --version` reports Dart `>= 3.3.0` and `< 4.0.0`, matching `pubspec.yaml`.

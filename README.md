@@ -20,7 +20,7 @@ The full technical reference is published for The Baking Journal under `docs/bak
 
 ### 1. Requirements
 
-- Android SDK with recent build-tools and JDK 17
+- Android SDK with recent build-tools and JDK 21 (Debian Trixie)
 - Flutter SDK stable channel with Dart `>=3.3.0 <4.0.0`
 - `git`; `jj` if you contribute in the same style as this repository
 
