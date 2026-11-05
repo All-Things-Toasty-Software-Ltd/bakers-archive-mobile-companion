@@ -26,18 +26,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  msix: ^3.18.0
 
 flutter:
   uses-material-design: true
 
-msix_config:
-  display_name: The Baker's Archive
-  publisher_display_name: Toasty Software
-  identity_name: ToastySoftware.TheBakersArchive
-  publisher: CN=85C6607D-F08D-4FDB-ACC4-DAD6918EECFC
-  msix_version: 1.0.0.0
-  logo_path: web/icons/Icon-512.png
-  capabilities: internetClient
-  architecture: x64
-  install_certificate: false
